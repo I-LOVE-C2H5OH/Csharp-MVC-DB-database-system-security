@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<body>
+    <form id="form">
+        <input type="text" id="username" placeholder="Username" />
+        <input type="password" id="password" placeholder="Password" />
+        <input type="submit" value="Войти" />
+    </form>
+    <script>
+        let form = document.getElementById("form");
+
+        form.addEventListener("submit", function (event) {
+            event.preventDefault(); // Отменяем отправку формы по умолчанию
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+
+            let xhr = new XMLHttpRequest();
+            xhr.open("GET", "/api/login?username=" + username + "&password=" + password);
+
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    let response = xhr.response;
+                    let responseData = JSON.parse(response);
+                    if (responseData.status === "ok") {
+                        document.cookie = "username=" + username;
+                        document.cookie = "password=" + password;
+                        sessionStorage.setItem("username", username);
+                        sessionStorage.setItem("password", password);
+
+                        var setCookieValue = xhr.getResponseHeader('Set-Cookie');
+                        document.cookie = setCookieValue;
+
+                        console.log("Авторизация успешно завершена");
+                    }
+                }
+            }
+
+            xhr.send();
+        });
+    </script>
+</body>

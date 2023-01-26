@@ -1,0 +1,41 @@
+﻿@model Web_api_tour.Data.Client
+
+@{
+    ViewData["Title"] = "View";
+}
+
+<body>
+	<form>
+		First Name: <input type="text" id="fname"><br>
+		Last Name: <input type="text" id="lname"><br>
+		Phone: <input type="text" id="phone"><br>
+		Passport: <input type="text" id="passport"><br>
+		Email: <input type="text" id="email"><br>
+		<input id="btn" type="button" value="Отправить" onclick="generateJSON()">
+	</form>
+
+<script>
+	function generateJSON() {
+		let fname = document.getElementById("fname").value;
+		let lname = document.getElementById("lname").value;
+		let phone = document.getElementById("phone").value;
+		let passport = document.getElementById("passport").value;
+		let email = document.getElementById("email").value;
+
+		let data = {
+			"Fname": fname,
+			"Lname": lname,
+			"phone": phone,
+			"passport": passport,
+			"mail": email
+		};
+
+		let xhr = new XMLHttpRequest();
+			xhr.open("POST", "http://localhost:5154/api/addNewClient", true);
+		xhr.setRequestHeader("Content-type", "application/json");
+		let json = JSON.stringify(data);
+		xhr.send(json);
+	}
+</script>
+
+</body>

@@ -1,0 +1,70 @@
+﻿@{
+    ViewData["Title"] = "Просмотр";
+}
+<h1>@ViewData["Title"]</h1>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+<button id="btnGetallTours">Получить список туров</button>
+<button id="btnGetAllOrder">Получить список Order`s</button>
+<div id="table"></div>
+
+<script>
+    function createTable(url) {
+        $.get(url, (data) => {
+            $('#table').html(''); // Добавлено
+            $('#table').append('<table class="table table-bordered">');
+            let table = $('#table').children();
+            let keys = Object.keys(data[0]);
+            table.append('<thead class="thead-dark"><tr>');
+            keys.forEach((key) => {
+                let th = $('<th />').html(key);
+                table.find('tr').append(th);
+            });
+            table.append('</tr></thead><tbody>');
+            data.forEach((row) => {
+                table.append('<tr>');
+                keys.forEach((key) => {
+                    let td = $('<td />');
+                    if (Array.isArray(row[key])) {
+                        let subTable = $('<table class="table table-bordered" />');
+                        let subTableHeader = $('<thead class="thead-dark"><tr>');
+                        let subTableBody = $('<tbody />');
+                        let subTableKeys = Object.keys(row[key][0]);
+                        subTableKeys.forEach((subTableKey) => {
+                            let th = $('<th />').html(subTableKey);
+                            subTableHeader.append(th);
+                        });
+                        subTable.append(subTableHeader).append(subTableBody);
+                        row[key].forEach((subRow) => {
+                            subTableBody.append('<tr>');
+                            subTableKeys.forEach((subTableKey) => {
+                                let td = $('<td />').html(subRow[subTableKey]);
+                                subTableBody.find('tr').last().append(td);
+                            });
+                            subTableBody.append('</tr>');
+                        });
+                        td.append(subTable);
+                    } else {
+                        td.html(row[key]);
+                    }
+                    table.find('tr').last().append(td);
+                });
+                table.append('</tr>');
+            });
+            table.append('</tbody></table>');
+        });
+    }
+
+    $(document).ready(() => {
+        $('#btnGetallTours').click(() => {
+            createTable('/api/alltours');
+        });
+    });
+
+    $(document).ready(() => {
+        $('#btnGetAllOrder').click(() => {
+            createTable('/api/allOrders');
+        });
+    });
+</script>

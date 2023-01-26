@@ -1,0 +1,19 @@
+create or replace function fn_check_dublicategroup() 
+returns trigger as $$
+BEGIN 
+  IF ( (select count(*) from boundle where boundle.contract_id= NEW.contract_id and 
+	  NEW.client_id = boundle.client_id) > 0
+	 )
+  THEN 
+    RAISE EXCEPTION '1 человек не может быть повторно быть в том же туре';
+  END IF; 
+  return new; 
+END;
+$$ 
+language plpgsql;
+
+
+CREATE TRIGGER tr_GroupComposition
+	BEFORE INSERT OR UPDATE ON boundle
+	FOR EACH ROW 
+	execute function fn_check_dublicategroup()

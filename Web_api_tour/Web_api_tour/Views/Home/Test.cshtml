@@ -1,0 +1,118 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div>
+    <h3>Выберите тур</h3>
+    <select id="tour">
+        <option disabled selected>Выберите тур</option>
+    </select>
+    <label>Стоимость тура:</label>
+    <input id="cost" type="number" disabled>
+    <label>Дата выдачи тура:</label>
+    <input id="date_of_issue" type="date">
+    <h3>Выберите клиентов</h3>
+    <select id="clients">
+        <option disabled selected>Выберите клиента</option>
+    </select>
+    <button id="addClient">Добавить клиента</button>
+    <button id="buy" disabled>Приобрести</button>
+</div>
+
+<script>
+    function getTourInfo() {
+        const tourSelect = document.querySelector('#tour');
+        const costInput = document.querySelector('#cost');
+        const dateInput = document.querySelector('#date_of_issue');
+        const buyButton = document.querySelector('#buy');
+        const clientsSelect = document.querySelector('#clients');
+        const addClientButton = document.querySelector('#addClient');
+        let tourID;
+        let clients = [];
+
+        // Запрос к серверу
+        fetch('/api/allTours')
+            .then(response => response.json())
+            .then(data => {
+                const tours = data;
+
+                // Заполняем выпадающий список
+                tours.forEach(tour => {
+                    let tourOption = document.createElement('option');
+                    tourOption.innerHTML = tour.tourName;
+                    tourOption.value = tour.id;
+                    tourSelect.appendChild(tourOption);
+                });
+
+                // Событие при изменении выбора
+                tourSelect.addEventListener('change', () => {
+                    tourID = tourSelect.value;
+                    const selectedTour = tours.find(tour => tour.id == tourID);
+                    costInput.value = selectedTour.cost;
+                    dateInput.addEventListener('change', (event) => {
+                        const date = event.target.value;
+                        dateInput.value = date;
+                    });
+                    buyButton.disabled = false;
+                });
+            });
+
+        // Запрос к серверу
+        fetch('/api/allClients')
+            .then(response => response.json())
+            .then(data => {
+                const clientsList = data;
+
+                // Заполняем выпадающий список
+                clientsList.forEach(client => {
+                    let clientOption = document.createElement('option');
+                    clientOption.innerHTML = client.fname;
+                    clientOption.value = client.id;
+                    clientsSelect.appendChild(clientOption);
+                });
+            });
+
+        // Событие при нажатии на кнопку
+        addClientButton.addEventListener('click', () => {
+            const selectedClient = clientsSelect.value;
+            clients.push(selectedClient);
+            // Добавляем дополнительное поле для выбора клиента
+            let clientsSelectNew = document.createElement('select');
+            clientsSelectNew.id = 'clients';
+            const clientsList = data;
+            clientsList.forEach(client => {
+                let clientOption = document.createElement('option');
+                clientOption.innerHTML = client.fname;
+                clientOption.value = client.id;
+                clientsSelectNew.appendChild(clientOption);
+            });
+            document.body.appendChild(clientsSelectNew);
+        });
+
+        // Событие при нажатии на кнопку
+        buyButton.addEventListener('click', () => {
+            let requestBody = {
+                tourID: tourID,
+                date_of_issue: dateInput.value,
+                cost: costInput.value,
+                clientID: clients
+            };
+            // Делаем запрос на сервер
+            fetch('/api/addNewOrder', {
+                method: 'POST',
+                body: JSON.stringify(requestBody),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    alert('Ваш тур успешно приобретен!');
+                });
+        });
+    }
+
+    getTourInfo();
+</script>
