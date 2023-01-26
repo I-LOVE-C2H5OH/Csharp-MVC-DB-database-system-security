@@ -1,0 +1,18 @@
+CREATE VIEW allContractInfo AS
+select contract.contract_id, contract.tour_id,
+contract.date_of_issue, contract.date_of_signing,
+tour.tour_name, tour.cost, tour.tour_duration  from contract 
+inner join tour on contract.tour_id = tour.tour_id;
+
+
+
+CREATE VIEW allclienttocontractInfo AS
+select client.client_id, boundle.contract_id,
+client.first_name, client.last_name, client.phone, client.email
+from boundle
+inner join client on boundle.client_id = client.client_id;
+
+CREATE VIEW allclienttoInfo AS
+select client.client_id,
+client.first_name, client.last_name, client.phone, client.email
+from client
