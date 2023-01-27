@@ -43,7 +43,6 @@ namespace Web_api_tour.SQL
 
         public async Task<List<Contract>> allOrders()
         {
-            
             var contracts = await GetContracts();
 
             foreach (var contract in contracts)
@@ -68,7 +67,6 @@ namespace Web_api_tour.SQL
                 await Open();
                 using (NpgsqlCommand command = conn.CreateCommand())
                 {
-
                     command.CommandText = $"SELECT * FROM allcontractInfo;";
                     using (NpgsqlDataReader reader = command.ExecuteReader())
                     {
@@ -208,7 +206,6 @@ namespace Web_api_tour.SQL
                                     date = datee.Date
                                 };
 
-
                                 if (dayweek == excursionShedule.dayWeek && !excursionShedules.Contains(excursionShedule))
                                     excursionShedules.Add(excursionShedule);
                             }
@@ -265,7 +262,6 @@ namespace Web_api_tour.SQL
 
         public async Task<bool> addNewRecord<T>(T data)
         {
-
             Type typeParameterType = typeof(T);
 
             bool returned = false;
@@ -279,7 +275,6 @@ namespace Web_api_tour.SQL
                     returned = await addnewContract(data as ContractOrder);
                     break;
             }
-
             return returned;
         }
         private async Task<bool> addnewContract(ContractOrder? cl)
@@ -385,13 +380,11 @@ namespace Web_api_tour.SQL
             {
                 using (NpgsqlCommand command = conn.CreateCommand())
                 {
-
                     command.CommandText = $"SELECT * FROM allclienttoInfo;";
 
                     await Open();
                     using (var reader = await command.ExecuteReaderAsync())
                     {
-
                         while (await reader.ReadAsync())
                         {
                             Client client = new Client
@@ -417,21 +410,10 @@ namespace Web_api_tour.SQL
             return clients;
         }
 
-        bool isClose()
-        {
-            while (isOpen)
-            {
-                Thread.Sleep(15);
-            }
-            return true;
-        }
-
         async Task<bool> Open()
         {
             try
             {
-                await Task.Delay(25);
-                await Task.Run(isClose);
                 if (!isOpen)
                 {
                     isOpen = true;
@@ -442,7 +424,6 @@ namespace Web_api_tour.SQL
             }
             catch
             {
-
             }
             return false;
         }

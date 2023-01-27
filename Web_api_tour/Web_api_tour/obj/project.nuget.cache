@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "+6e+x2jEfgZpOE2lsIn+4rlWEuJ47CI8sYOu566iJOcVEILjLrXdVezrPRyeNeRt2tfKsVYI7NlmEndFIIETGg==",
+  "dgSpecHash": "rZxc9HsCo7BH6tw0Dxp2/nW5HHgeRBvSGOzIYlMvvH0qQZQejb3kwiBAGbRLvM8uOAKe3JX57r3FS9TAdSxkqA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\nikita\\Desktop\\Web_api_tour\\Web_api_tour\\Web_api_tour.csproj",
+  "projectFilePath": "C:\\Users\\nikita\\Documents\\GitHub\\Csharp-MVC-DB-database-system-security\\Web_api_tour\\Web_api_tour\\Web_api_tour.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\nikita\\.nuget\\packages\\humanizer.core\\2.2.0\\humanizer.core.2.2.0.nupkg.sha512",
     "C:\\Users\\nikita\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",

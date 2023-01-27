@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\nikita\\Desktop\\Web_api_tour\\Web_api_tour\\Web_api_tour.csproj": {}
+    "C:\\Users\\nikita\\Documents\\GitHub\\Csharp-MVC-DB-database-system-security\\Web_api_tour\\Web_api_tour\\Web_api_tour.csproj": {}
   },
   "projects": {
-    "C:\\Users\\nikita\\Desktop\\Web_api_tour\\Web_api_tour\\Web_api_tour.csproj": {
+    "C:\\Users\\nikita\\Documents\\GitHub\\Csharp-MVC-DB-database-system-security\\Web_api_tour\\Web_api_tour\\Web_api_tour.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nikita\\Desktop\\Web_api_tour\\Web_api_tour\\Web_api_tour.csproj",
+        "projectUniqueName": "C:\\Users\\nikita\\Documents\\GitHub\\Csharp-MVC-DB-database-system-security\\Web_api_tour\\Web_api_tour\\Web_api_tour.csproj",
         "projectName": "Web_api_tour",
-        "projectPath": "C:\\Users\\nikita\\Desktop\\Web_api_tour\\Web_api_tour\\Web_api_tour.csproj",
+        "projectPath": "C:\\Users\\nikita\\Documents\\GitHub\\Csharp-MVC-DB-database-system-security\\Web_api_tour\\Web_api_tour\\Web_api_tour.csproj",
         "packagesPath": "C:\\Users\\nikita\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nikita\\Desktop\\Web_api_tour\\Web_api_tour\\obj\\",
+        "outputPath": "C:\\Users\\nikita\\Documents\\GitHub\\Csharp-MVC-DB-database-system-security\\Web_api_tour\\Web_api_tour\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\nikita\\AppData\\Roaming\\NuGet\\NuGet.Config",
